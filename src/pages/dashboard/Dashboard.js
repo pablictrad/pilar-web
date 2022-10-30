@@ -1,5 +1,5 @@
 import { React,useEffect } from "react";
-import {Grid,Paper,Box} from '@mui/material';
+import {Grid,Paper,Box,Typography} from '@mui/material';
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import { ListAlt, ManageSearch } from '@mui/icons-material';
@@ -16,10 +16,17 @@ const Dashboard = () => {
     dispatch(appActions.setPageTitle('TABLERO'))
   
    },[])
+
+  const todo = useSelector(appSelector.todo)
   return (
    <Grid container spacing={3}>
     <Grid item md={6} xs={12}>
      <Paper sx={{p: 2}}>
+     <Box>
+        <Typography sx={{fontSize:18,fontWeight:700}}>
+            Te quedan {todo.filter((todo)=>!todo.completed).length} tareas por terminar
+        </Typography> 
+        </Box>
        <Box>
          <Button component={Link} to="/todo">
          <ListAlt/>
@@ -30,6 +37,11 @@ const Dashboard = () => {
     </Grid>
     <Grid item md={6} xs={12}>
      <Paper sx={{p: 2}}>
+      <Box>
+       <Typography sx={{fontSize:18,fontWeight:700}}>
+            Tienes {todo.filter((todo)=>todo.completed).length} tareas completadas
+        </Typography> 
+       </Box>
        <Box>
         <Button component={Link} to="/fetch-list">
           <ManageSearch/>
